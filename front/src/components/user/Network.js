@@ -9,7 +9,7 @@ function Network() {
   const navigate = useNavigate();
   const { users, userState } = useContext(UserContext);
   //selected category
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState("전체");
 
   useEffect(() => {
     if (!userState.user) {
@@ -24,7 +24,7 @@ function Network() {
       style={{ height: "auto", minHeight: "100%", paddingBottom: "250px" }}
     >
       <Category setCategory={setCategory} />
-      {category === "all" && (
+      {category === "전체" && (
         <Row xs="auto">
           {users.map((user) => (
             <Col sm={3} key={user.id}>
@@ -33,38 +33,10 @@ function Network() {
           ))}
         </Row>
       )}
-      {category === "developer" && (
+      {category !== "전체" && (
         <Row xs="auto">
           {users.map((user) => {
-            if (user.user_category === "개발자") {
-              return (
-                <Col sm={3} key={user.id}>
-                  <UserCard user={user} isNetwork />
-                </Col>
-              );
-            }
-            return null;
-          })}
-        </Row>
-      )}
-      {category === "artist" && (
-        <Row xs="auto">
-          {users.map((user) => {
-            if (user.user_category === "예술가") {
-              return (
-                <Col sm={3} key={user.id}>
-                  <UserCard user={user} isNetwork />
-                </Col>
-              );
-            }
-            return null;
-          })}
-        </Row>
-      )}
-      {category === "mafia" && (
-        <Row xs="auto">
-          {users.map((user) => {
-            if (user.user_category === "마피아") {
+            if (user.user_category === category) {
               return (
                 <Col sm={3} key={user.id}>
                   <UserCard user={user} isNetwork />
